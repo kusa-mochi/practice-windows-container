@@ -1,0 +1,5 @@
+FROM mcr.microsoft.com/windows/server:ltsc2022-KB5012604-amd64
+COPY MinGit.zip /
+RUN powershell -Command Expand-Archive /MinGit.zip -DestinationPath /MinGit/; \
+$env:PATH = $env:PATH + ';c:\MinGit\cmd\;c:\MinGit\cmd'; \
+Set-ItemProperty -Path 'HKLM:\SYSTEM\CurrentControlSet\Control\Session Manager\Environment\' -Name Path -Value $env:PATH
