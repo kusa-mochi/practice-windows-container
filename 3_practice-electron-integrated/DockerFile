@@ -1,0 +1,11 @@
+FROM mcr.microsoft.com/windows/server:ltsc2022-KB5012604-amd64
+COPY MinGit.zip /
+COPY node-v14.15.3-win-x64.zip /
+RUN powershell -Command Expand-Archive /MinGit.zip -DestinationPath /MinGit/; \
+$env:PATH = $env:PATH + ';c:\MinGit\cmd\'; \
+Set-ItemProperty 'HKLM:\SYSTEM\CurrentControlSet\Control\Session Manager\Environment\' -Name Path -Value $env:PATH
+RUN powershell -Command Expand-Archive /node-v14.15.3-win-x64.zip -DestinationPath /; \
+$env:PATH = $env:PATH + ';c:\node-v14.15.3-win-x64\'; \
+Set-ItemProperty 'HKLM:\SYSTEM\CurrentControlSet\Control\Session Manager\Environment\' -Name Path -Value $env:PATH
+RUN set NODE_PATH=c:\users\ContainerAdministrator\appdata\roaming\npm\node_modules
+COPY npmrc /node-v14.15.3-win-x64/node_modules/npm/
