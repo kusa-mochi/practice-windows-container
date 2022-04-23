@@ -1,9 +1,8 @@
 FROM mcr.microsoft.com/windows/server:ltsc2022-KB5012604-amd64
-COPY MinGit.zip /tmp/
 COPY nodejs.msi /tmp/
-RUN powershell -Command Expand-Archive /tmp/MinGit.zip -DestinationPath /MinGit/; \
-$env:PATH = $env:PATH + ';c:\MinGit\cmd\'; \
-Set-ItemProperty 'HKLM:\SYSTEM\CurrentControlSet\Control\Session Manager\Environment\' -Name Path -Value $env:PATH
+RUN powershell -NoProfile -ExecutionPolicy Bypass -Command "iex ((New-Object System.Net.WebClient).DownloadString('https://chocolatey.org/install.ps1'))"
+RUN setx PATH "%PATH%;%ALLUSERSPROFILE%\chocolatey\bin"
+RUN choco install git.install -y
 RUN msiexec.exe /i c:\tmp\nodejs.msi /quiet
 RUN npm i -g @vue/cli
 RUN mkdir c:\src
