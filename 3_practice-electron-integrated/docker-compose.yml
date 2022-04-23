@@ -1,0 +1,10 @@
+version: "3.8"
+services:
+  app:
+    image: mochi/windows-vue:latest
+    container_name: windows-vue
+    volumes:
+      - type: bind
+        source: ./src
+        target: c:\sandbox
+    tty: true
