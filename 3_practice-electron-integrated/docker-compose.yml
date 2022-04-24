@@ -5,6 +5,6 @@ services:
     container_name: windows-vue
     volumes:
       - type: bind
-        source: ./src
-        target: c:\sandbox
+        source: .\src
+        target: c:\src
     tty: true
