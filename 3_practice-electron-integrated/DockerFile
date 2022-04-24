@@ -6,4 +6,3 @@ RUN choco install git.install -y
 RUN msiexec.exe /i c:\tmp\nodejs.msi /quiet
 RUN npm i -g @vue/cli
 RUN mkdir c:\src
-RUN cd c:\src
